@@ -5,8 +5,8 @@ import java.util.List;
 import LMS.GlobalConfig;
 
 public class Instructor extends User {
-    public Instructor(int id, String name) {
-        super(id, name, GlobalConfig.USER_TYPE_INSTRUCTOR);
+    public Instructor(int id, String name, String email, String password) {
+        super(id, name, email, password, GlobalConfig.USER_TYPE_INSTRUCTOR);
     }
 
 @Override

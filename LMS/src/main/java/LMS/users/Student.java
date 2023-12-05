@@ -7,8 +7,8 @@ import LMS.GlobalConfig;
 public class Student extends User {
     double gpa;
 
-    public Student(int id, String name, UserType userType, double gpa) {
-        super(id, name, GlobalConfig.USER_TYPE_STUDENT);
+    public Student(int id, String name, String email, String password, double gpa) {
+        super(id, name, email, password, GlobalConfig.USER_TYPE_STUDENT);
         this.gpa = gpa;
     }
 

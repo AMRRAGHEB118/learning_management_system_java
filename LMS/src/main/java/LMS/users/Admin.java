@@ -8,8 +8,8 @@ import LMS.GlobalConfig;
 public class Admin extends User {
     private List<String> privileges;
 
-    public Admin(int id, String name) {
-        super(id, name, GlobalConfig.USER_TYPE_ADMIN);
+    public Admin(int id, String name, String email, String password) {
+        super(id, name, email, password, GlobalConfig.USER_TYPE_ADMIN);
         this.privileges = new ArrayList<>();
     }
 
