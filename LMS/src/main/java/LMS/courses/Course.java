@@ -3,27 +3,44 @@ package LMS.courses;
 import java.util.ArrayList;
 import java.util.List;
 
+import LMS.users.Instructor;
+
 public class Course {
     private int courseId;
     private String courseName;
-    private List<Assignment> Assignments;
+    private Instructor instructor;
+    private List<Assignment> assignments;
     private List<Lecture> lectures;
 
-    public Course(int courseId, String courseName) {
+    public Course(int courseId, String courseName, Instructor instructor) {
         this.courseId = courseId;
         this.courseName = courseName;
-        this.Assignments = new ArrayList<>();
+        this.instructor = instructor;
+        this.assignments = new ArrayList<>();
         this.lectures = new ArrayList<>();
     }
 
-    public void addAssignment(Assignment Assignment) {
-        Assignments.add(Assignment);
+    // Getters
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void updateAssignment(Assignment Assignment) {}
+    public String getCourseName() {
+        return courseName;
+    }
 
-    public void deleteAssignment(Assignment Assignment) {
-        Assignments.remove(Assignment);
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void addAssignment(Assignment assignment) {
+        assignments.add(assignment);
+    }
+
+    public void updateAssignment(Assignment assignment) {}
+
+    public void deleteAssignment(Assignment assignment) {
+        assignments.remove(assignment);
     }
 
     public void addLecture(Lecture lecture) {
