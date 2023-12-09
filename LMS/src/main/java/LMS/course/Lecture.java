@@ -1,4 +1,4 @@
-package LMS.courses;
+package LMS.course;
 
 public class Lecture {
     private int lectureId;

@@ -1,4 +1,4 @@
-package LMS.users;
+package LMS.user;
 
 import java.util.ArrayList;
 import java.util.List;

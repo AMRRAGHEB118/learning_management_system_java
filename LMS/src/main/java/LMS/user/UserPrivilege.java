@@ -1,4 +1,4 @@
-package LMS.users;
+package LMS.user;
 
 public class UserPrivilege {
     private int id;

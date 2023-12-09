@@ -1,4 +1,4 @@
-package LMS.courses;
+package LMS.course;
 
 import java.util.HashMap;
 import java.util.Map;

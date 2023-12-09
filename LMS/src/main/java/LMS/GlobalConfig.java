@@ -1,6 +1,6 @@
 package LMS;
 
-import LMS.users.UserType;
+import LMS.user.UserType;
 
 public class GlobalConfig {
     public static final UserType USER_TYPE_ADMIN = new UserType("ADMIN");

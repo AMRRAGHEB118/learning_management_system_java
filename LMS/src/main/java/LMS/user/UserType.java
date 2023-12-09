@@ -1,4 +1,4 @@
-package LMS.users;
+package LMS.user;
 
 import LMS.GlobalConfig;
 

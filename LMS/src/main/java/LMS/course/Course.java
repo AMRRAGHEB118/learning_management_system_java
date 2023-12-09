@@ -1,9 +1,9 @@
-package LMS.courses;
+package LMS.course;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import LMS.users.Instructor;
+import LMS.user.Instructor;
 
 public class Course {
     private int courseId;
