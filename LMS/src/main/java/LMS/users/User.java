@@ -2,7 +2,6 @@ package LMS.users;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public abstract class User {
     private int id;
@@ -12,7 +11,7 @@ public abstract class User {
     private UserType userType;
     private List<UserPrivilege> privileges;
 
-    public User(int id, String name, String email, String password, UserType userType) {
+    public User(int id, String name, String email, String password, UserType userType, List<UserPrivilege> privileges) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -49,21 +48,14 @@ public abstract class User {
         privileges.remove(privilege);
     }
 
-    public void updateUserInfo(String newName, UserType newUserType) {
-        this.name = newName;
-        this.userType = newUserType;
+
+    public void updatePassword(String password) {
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("New password cannot be empty.");
+        }
+        this.password = password;
     }
 
     public abstract void displayUserInfo();
 
-    public void deleteUser(List<User> userList, int userId) {
-        Iterator<User> iterator = userList.iterator();
-        while (iterator.hasNext()) {
-            User user = iterator.next();
-            if (user.getId() == userId) {
-                iterator.remove();
-                break;
-            }
-        }
-    }
 }
