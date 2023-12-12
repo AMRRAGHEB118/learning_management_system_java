@@ -23,7 +23,6 @@ public class FileManager<T> {
             File file = new File(filePath);
 
             if (!file.exists()) {
-
                 System.out.println("File not found: " + filePath);
                 return new ArrayList<>();
             }
@@ -34,20 +33,18 @@ public class FileManager<T> {
                 System.out.println("File is empty or invalid: " + filePath);
                 return new ArrayList<>();
             }
-    
+
             // Check if the list is empty
             if (resultList.isEmpty()) {
                 System.out.println("File is empty: " + filePath);
             }
-    
+
             return resultList;
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
     }
-    
-
 
     public void writeToFile(List<T> data) {
         try {
@@ -59,4 +56,5 @@ public class FileManager<T> {
         }
     }
 }
+
 

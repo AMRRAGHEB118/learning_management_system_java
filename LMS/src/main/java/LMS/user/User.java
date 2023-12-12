@@ -58,4 +58,8 @@ public abstract class User {
 
     public abstract void displayUserInfo();
 
+    public Object getPassword() {
+        return password;
+    }
+
 }
