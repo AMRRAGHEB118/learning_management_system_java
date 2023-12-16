@@ -3,7 +3,7 @@ package LMS.user;
 import java.util.List;
 import java.util.ArrayList;
 
-public abstract class User {
+public class User {
     private int id;
     private String name;
     private String email;
@@ -11,13 +11,21 @@ public abstract class User {
     private UserType userType;
     private List<UserPrivilege> privileges;
 
-    public User(int id, String name, String email, String password, UserType userType, List<UserPrivilege> privileges) {
+    public User() {
+        this.id = 0;
+    }
+
+    public User(int id, String name, String email, String password, String userType) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.userType = userType;
-        this.privileges = new ArrayList<>();
+        this.userType = new UserType(userType);
+        List<UserPrivilege> currentPrivileges = new ArrayList<>();
+        for (UserPrivilege userPrivilege : privileges) {
+            currentPrivileges.add(new UserPrivilege(userPrivilege.getPrivilegeName()));
+        }
+        this.privileges = new ArrayList<UserPrivilege>(currentPrivileges);
     }
 
     public int getId() {
@@ -56,9 +64,7 @@ public abstract class User {
         this.password = password;
     }
 
-    public abstract void displayUserInfo();
-
-    public Object getPassword() {
+    public String getPassword() {
         return password;
     }
 
