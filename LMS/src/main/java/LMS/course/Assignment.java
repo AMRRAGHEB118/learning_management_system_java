@@ -19,6 +19,10 @@ public class Assignment {
         this.taskType = taskType;
     }
 
+    public int getCourseId() {
+        return courseId;
+    }
+
     public int getAssignmentId() {
         return assignmentId;
     }
