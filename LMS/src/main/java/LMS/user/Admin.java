@@ -44,14 +44,13 @@ public class Admin extends User {
         String password = scanner.nextLine();
 
         Instructor newInstructor = new Instructor(instructors.size() + 1, name, email, password);
-        
-        instructors.add(newInstructor);
-        fileManager.writeToFile(instructors);
+
+        fileManager.appendToFile(instructors, newInstructor);
 
         System.out.println("Instructor added successfully.");
     }
 
-        public static void addStudent(Scanner scanner) {
+    public static void addStudent(Scanner scanner) {
         System.out.println("Add Student");
 
         FileManager<Student> fileManager = new FileManager<Student>(".//target//data//Student.json", Student.class);
@@ -68,8 +67,7 @@ public class Admin extends User {
 
         Student newStudent = new Student(students.size() + 1, name, email, password, 0.0);
 
-        students.add(newStudent);
-        fileManager.writeToFile(students);
+        fileManager.appendToFile(students, newStudent);
 
         System.out.println("Student added successfully.");
     }

@@ -17,6 +17,50 @@ public class FileManager<T> {
         this.type = type;
     }
 
+    public void appendToFile(List<T> data, T item) {
+        try {
+            data.add(item);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            objectMapper.writeValue(new File(filePath), data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteFromFile(List<T> data, T item) {
+        try {
+            data.remove(item);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            objectMapper.writeValue(new File(filePath), type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateFile(List<T> data, T item) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            objectMapper.writeValue(new File(filePath), type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertFile() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            objectMapper.writeValue(new File(filePath), type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<T> readFromFile() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -34,7 +78,6 @@ public class FileManager<T> {
                 return new ArrayList<>();
             }
 
-            // Check if the list is empty
             if (resultList.isEmpty()) {
                 System.out.println("File is empty: " + filePath);
             }
@@ -46,15 +89,15 @@ public class FileManager<T> {
         }
     }
 
-    public void writeToFile(List<T> data) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writeValue(new File(filePath), data);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    // public void writeToFile(List<T> data) {
+    //     try {
+    //         ObjectMapper objectMapper = new ObjectMapper();
+    //         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+    //         objectMapper.writeValue(new File(filePath), data);
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 }
 
 
