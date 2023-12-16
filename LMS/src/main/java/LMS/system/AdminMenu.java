@@ -2,8 +2,6 @@ package LMS.system;
 
 import java.util.Scanner;
 
-import LMS.user.Admin;
-
 public class AdminMenu {
 
     public static void showDashboard(Scanner scanner) {
@@ -18,7 +16,9 @@ public class AdminMenu {
         System.out.println("7. Add User Privilege");
         System.out.println("8. Edit User Privilege");
         System.out.println("9. Delete User Privilege");
-        System.out.println("10. Logout");
+        System.out.println("10. Add Course");
+        System.out.println("11. DeleteCourse");
+        System.out.println("12. Logout");
 
         try {
             boolean exit = false;
@@ -32,33 +32,39 @@ public class AdminMenu {
     
                     switch (choice) {
                         case 1:
-                            Admin.addInstructor(scanner);
+                            Auth.currentAdmin.addInstructor(scanner);
                             break;
                         case 2:
-                            Admin.editInstructor(scanner);
+                            Auth.currentAdmin.editInstructor(scanner);
                             break;
                         case 3:
-                            Admin.deleteInstructor(scanner);
+                            Auth.currentAdmin.deleteInstructor(scanner);
                             break;
                         case 4:
-                            Admin.addStudent(scanner);
+                            Auth.currentAdmin.addStudent(scanner);
                             break;
                         case 5:
-                            Admin.editStudent(scanner);
+                            Auth.currentAdmin.editStudent(scanner);
                             break;
                         case 6:
-                            Admin.deleteStudent(scanner);
+                            Auth.currentAdmin.deleteStudent(scanner);
                             break;
                         case 7:
-                            Admin.addUserPrivilege(scanner);
+                            Auth.currentAdmin.addUserPrivilege(scanner);
                             break;
                         case 8:
-                            Admin.editUserPrivilege(scanner);
+                            Auth.currentAdmin.editUserPrivilege(scanner);
                             break;
                         case 9:
-                            Admin.deleteUserPrivilege(scanner);
+                            Auth.currentAdmin.deleteUserPrivilege(scanner);
                             break;
                         case 10:
+                            Auth.currentAdmin.addCourse(scanner);
+                            break;
+                        case 11:
+                            Auth.currentAdmin.deleteCourse(scanner);
+                            break;
+                        case 12:
                             Auth.logoutAsAdmin();
                             MainMenu.showDashboard(scanner);
                         default:

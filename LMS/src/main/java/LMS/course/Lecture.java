@@ -5,7 +5,6 @@ public class Lecture {
     private String lectureName;
     private String lectureContent;
 
-    // Constructor
     public Lecture(int lectureId, String lectureName, String lectureContent) {
         this.lectureId = lectureId;
         this.lectureName = lectureName;

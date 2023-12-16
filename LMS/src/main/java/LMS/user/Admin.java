@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import LMS.GlobalConfig;
+import LMS.course.Course;
 import LMS.system.FileManager;
 
 public class Admin extends User {
@@ -16,7 +17,7 @@ public class Admin extends User {
         super(id, name, email, password, GlobalConfig.USER_TYPE_ADMIN.getTypeName());
     }
 
-    public static void addInstructor(Scanner scanner) {
+    public void addInstructor(Scanner scanner) {
         System.out.println("Add Instructor");
 
         FileManager<Instructor> fileManager = new FileManager<Instructor>(".//target//data//Instructor.json", Instructor.class);
@@ -38,7 +39,7 @@ public class Admin extends User {
         System.out.println("Instructor added successfully.");
     }
 
-    public static void addStudent(Scanner scanner) {
+    public void addStudent(Scanner scanner) {
         System.out.println("Add Student");
 
         FileManager<Student> fileManager = new FileManager<Student>(".//target//data//Student.json", Student.class);
@@ -60,7 +61,7 @@ public class Admin extends User {
         System.out.println("Student added successfully.");
     }
 
-    public static void deleteInstructor(Scanner scanner) {
+    public void deleteInstructor(Scanner scanner) {
         System.out.println("Delete Instructor");
         boolean isExist = false;
 
@@ -84,7 +85,7 @@ public class Admin extends User {
         }
     }
 
-    public static void editInstructor(Scanner scanner) {
+    public void editInstructor(Scanner scanner) {
         System.out.println("Edit Instructor");
         boolean isExist = false;
         int existPrivilegeId = 0;
@@ -126,7 +127,7 @@ public class Admin extends User {
         System.out.println("Instructor updated successfully.");
     }
 
-    public static void editStudent(Scanner scanner) {
+    public void editStudent(Scanner scanner) {
         System.out.println("Edit Student");
         boolean isExist = false;
         int existPrivilegeId = 0;
@@ -168,7 +169,7 @@ public class Admin extends User {
         System.out.println("Student updated successfully.");
     }
 
-    public static void deleteStudent(Scanner scanner) {
+    public void deleteStudent(Scanner scanner) {
         System.out.println("Delete Student");
         boolean isExist = false;
 
@@ -192,7 +193,7 @@ public class Admin extends User {
         }
     }
 
-    public static void addUserPrivilege(Scanner scanner) {
+    public void addUserPrivilege(Scanner scanner) {
         System.out.println("Add User Privilege");
 
         FileManager<UserPrivilege> fileManager = new FileManager<UserPrivilege>(".//target//data//UserPrivilege.json", UserPrivilege.class);
@@ -208,7 +209,7 @@ public class Admin extends User {
         System.out.println("User Privilege added successfully.");
     }
 
-    public static void editUserPrivilege(Scanner scanner) {
+    public void editUserPrivilege(Scanner scanner) {
         System.out.println("Edit User Privilege");
         boolean isExist = false;
 
@@ -235,7 +236,7 @@ public class Admin extends User {
         }
     }
 
-    public static void deleteUserPrivilege(Scanner scanner) {
+    public void deleteUserPrivilege(Scanner scanner) {
         System.out.println("Delete User Privilege");
         boolean isExist = false;
 
@@ -256,6 +257,65 @@ public class Admin extends User {
 
         if (!isExist) {
             System.out.println("User Privilege does not exist.");
+        }
+    }
+
+    public void addCourse(Scanner scanner) {
+        System.out.println("Add Course");
+        boolean isExist = false;
+
+        FileManager<Course> fileManager = new FileManager<Course>(".//target//data//Course.json", Course.class);
+        FileManager<Instructor> fileManager2 = new FileManager<Instructor>(".//target//data//Instructor.json", Instructor.class);
+        List<Course> courses = fileManager.readFromFile();
+        List<Instructor> instructors = fileManager2.readFromFile();
+
+        System.out.print("Enter course name: ");
+        String courseName = scanner.nextLine();
+
+        System.out.print("Enter instructor id: ");
+        int id = scanner.nextInt();
+
+        for (Instructor instructor : instructors) {
+            if (instructor.getId() == id) {
+                isExist = true;
+                break;
+            }
+        }
+
+        if (!isExist) {
+            System.out.println("Instructor does not exist.");
+            return;
+        }
+
+        Course newCourse = new Course(courses.size() + 1, courseName, id);
+
+        fileManager.appendToFile(courses, newCourse);
+
+        System.out.println("Course added successfully.");
+
+    }
+
+    public void deleteCourse(Scanner scanner) {
+        System.out.println("Delete Course");
+        boolean isExist = false;
+
+        FileManager<Course> fileManager = new FileManager<Course>(".//target//data//Course.json", Course.class);
+        List<Course> courses = fileManager.readFromFile();
+
+        System.out.print("Enter course id: ");
+        int id = scanner.nextInt();
+
+        for (Course course : courses) {
+            if (course.getCourseId() == id) {
+                fileManager.deleteFromFile(courses, course);
+                System.out.println("Course deleted successfully.");
+                isExist = true;
+                break;
+            }
+        }
+
+        if (!isExist) {
+            System.out.println("Course does not exist.");
         }
     }
 

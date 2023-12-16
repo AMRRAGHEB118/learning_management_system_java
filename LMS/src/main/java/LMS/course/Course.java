@@ -3,20 +3,21 @@ package LMS.course;
 import java.util.ArrayList;
 import java.util.List;
 
-import LMS.user.Instructor;
 
 public class Course {
     private int courseId;
     private String courseName;
-    private Instructor instructor;
-    private List<Assignment> assignments;
-    private List<Lecture> lectures;
+    private int instructorId;
+    private List<Integer> assignments;
+    private List<Integer> lectures;
     private Report report;
 
-    public Course(int courseId, String courseName, Instructor instructor) {
+    public Course() {}
+
+    public Course(int courseId, String courseName, int instructorId) {
         this.courseId = courseId;
         this.courseName = courseName;
-        this.instructor = instructor;
+        this.instructorId = instructorId;
         this.assignments = new ArrayList<>();
         this.lectures = new ArrayList<>();
         this.report = new Report();
@@ -31,13 +32,13 @@ public class Course {
         return courseName;
     }
 
-    public Instructor getInstructor() {
-        return instructor;
+    public int getInstructorId() {
+        return instructorId;
     }
 
-    public void addAssignment(Assignment assignment) {
-        assignments.add(assignment);
-    }
+    // public void addAssignment(Assignment assignment) {
+    //     assignments.add(assignment);
+    // }
 
     public void updateAssignment(Assignment assignment) {}
 
@@ -45,9 +46,9 @@ public class Course {
         assignments.remove(assignment);
     }
 
-    public void addLecture(Lecture lecture) {
-        lectures.add(lecture);
-    }
+    // public void addLecture(Lecture lecture) {
+    //     lectures.add(lecture);
+    // }
 
     public void updateLecture(Lecture lecture) {}
 

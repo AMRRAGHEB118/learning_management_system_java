@@ -6,7 +6,7 @@ import java.util.Map;
 public class Report {
     private Map<Integer, Double> studentGrades;
 
-    // Constructor
+
     public Report() {
         this.studentGrades = new HashMap<>();
     }
