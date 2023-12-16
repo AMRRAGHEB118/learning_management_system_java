@@ -6,11 +6,6 @@ public class UserPrivilege {
     public UserPrivilege() {
     }
 
-    public UserPrivilege(String privilegeName) {
-        this.privilegeName = privilegeName;
-    }
-
-
     public String getPrivilegeName() {
         return this.privilegeName;
     }

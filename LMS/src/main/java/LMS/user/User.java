@@ -12,7 +12,6 @@ public class User {
     private List<UserPrivilege> privileges;
 
     public User() {
-        this.id = 0;
     }
 
     public User(int id, String name, String email, String password, String userType) {
@@ -21,11 +20,12 @@ public class User {
         this.email = email;
         this.password = password;
         this.userType = new UserType(userType);
-        List<UserPrivilege> currentPrivileges = new ArrayList<>();
-        for (UserPrivilege userPrivilege : privileges) {
-            currentPrivileges.add(new UserPrivilege(userPrivilege.getPrivilegeName()));
-        }
-        this.privileges = new ArrayList<UserPrivilege>(currentPrivileges);
+        this.privileges = new ArrayList<>();
+        // List<UserPrivilege> currentPrivileges = new ArrayList<>();
+        // for (UserPrivilege userPrivilege : privileges) {
+        //     currentPrivileges.add(new UserPrivilege(userPrivilege.getPrivilegeName()));
+        // }
+        // this.privileges = new ArrayList<UserPrivilege>(currentPrivileges);
     }
 
     public int getId() {

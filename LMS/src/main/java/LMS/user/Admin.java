@@ -1,44 +1,77 @@
 package LMS.user;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
+import LMS.GlobalConfig;
 import LMS.system.FileManager;
 
 public class Admin extends User {
-    private List<UserPrivilege> privileges;
 
     public Admin() {
-        this.privileges = new ArrayList<>();
+        super();
     }
 
-    public Admin(int id, String name, String email, String password, List<UserPrivilege> privileges) {
-        super(id, name, email, password, "admin");
-        this.privileges = new ArrayList<>(privileges);
+    public Admin(int id, String name, String email, String password) {
+        super(id, name, email, password, GlobalConfig.USER_TYPE_ADMIN.getTypeName());
     }
 
-    public List<UserPrivilege> getPrivileges() {
-        return privileges;
+    // public List<UserPrivilege> getPrivileges() {
+    //     return privileges;
+    // }
+
+    // public void addPrivilege(UserPrivilege privilege) {
+    //     privileges.add(privilege);
+    // }
+
+    // public void removePrivilege(UserPrivilege privilege) {
+    //     privileges.remove(privilege);
+    // }
+
+    public static void addInstructor(Scanner scanner) {
+        System.out.println("Add Instructor");
+
+        FileManager<Instructor> fileManager = new FileManager<Instructor>(".//target//data//Instructor.json", Instructor.class);
+        List<Instructor> instructors = fileManager.readFromFile();
+
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
+
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+        Instructor newInstructor = new Instructor(instructors.size() + 1, name, email, password);
+        
+        instructors.add(newInstructor);
+        fileManager.writeToFile(instructors);
+
+        System.out.println("Instructor added successfully.");
     }
 
-    public void addPrivilege(UserPrivilege privilege) {
-        privileges.add(privilege);
-    }
+        public static void addStudent(Scanner scanner) {
+        System.out.println("Add Student");
 
-    public void removePrivilege(UserPrivilege privilege) {
-        privileges.remove(privilege);
-    }
+        FileManager<Student> fileManager = new FileManager<Student>(".//target//data//Student.json", Student.class);
+        List<Student> students = fileManager.readFromFile();
 
-    public void addUser() {
-        System.out.println("Add User");
-    }
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
 
-    public void editUser() {
-        System.out.println("Edit User");
-    }
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
 
-    public void deleteUser() {
-        System.out.println("Delete User");
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+        Student newStudent = new Student(students.size() + 1, name, email, password, 0.0);
+
+        students.add(newStudent);
+        fileManager.writeToFile(students);
+
+        System.out.println("Student added successfully.");
     }
 
     public void viewUsers() {
@@ -67,6 +100,13 @@ public class Admin extends User {
     }
 
     public void editPrivilege() {
+    }
+
+    public static void deleteInstructor(Scanner scanner) {
+        
+    }
+
+    public static void editInstructor(Scanner scanner) {
     }
 }
 

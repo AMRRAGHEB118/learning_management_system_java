@@ -1,12 +1,17 @@
 package LMS.user;
 
-import java.util.List;
+import LMS.GlobalConfig;
 
 public class Student extends User {
     double gpa;
 
-    public Student(int id, String name, String email, String password, List<String> privileges, double gpa) {
+    public Student(double gpa) {
         super();
+        this.gpa = gpa;
+    }
+
+    public Student(int id, String name, String email, String password, double gpa) {
+        super(id, name, email, password, GlobalConfig.USER_TYPE_STUDENT.getTypeName());
         this.gpa = gpa;
     }
 
