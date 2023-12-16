@@ -30,7 +30,13 @@ public class MainMenu implements Menu {
                         }
                         break;
                     case 2:
-                        InstructorMenu.showDashboard();
+                        Auth.currentInstructor = Auth.loginAsInstructor(scanner);
+                        System.out.println(Auth.currentInstructor);
+                        if (Auth.currentInstructor != null) {
+                            InstructorMenu.showDashboard(scanner);
+                        } else {
+                            System.out.println("Login failed. Instructor not found.");
+                        }
                         break;
                     case 3:
                         StudentMenu.showDashboard();

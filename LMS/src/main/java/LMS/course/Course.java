@@ -8,7 +8,6 @@ public class Course {
     private int courseId;
     private String courseName;
     private int instructorId;
-    private List<Integer> assignments;
     private List<Integer> lectures;
     private Report report;
 
@@ -18,7 +17,6 @@ public class Course {
         this.courseId = courseId;
         this.courseName = courseName;
         this.instructorId = instructorId;
-        this.assignments = new ArrayList<>();
         this.lectures = new ArrayList<>();
         this.report = new Report();
     }
@@ -36,25 +34,11 @@ public class Course {
         return instructorId;
     }
 
-    // public void addAssignment(Assignment assignment) {
-    //     assignments.add(assignment);
-    // }
-
     public void updateAssignment(Assignment assignment) {}
 
-    public void deleteAssignment(Assignment assignment) {
-        assignments.remove(assignment);
-    }
-
-    // public void addLecture(Lecture lecture) {
-    //     lectures.add(lecture);
-    // }
 
     public void updateLecture(Lecture lecture) {}
 
-    public void deleteLecture(Lecture lecture) {
-        lectures.remove(lecture);
-    }
 
     public void addStudentGrade(int studentId, double grade) {
         report.addGrade(studentId, grade);

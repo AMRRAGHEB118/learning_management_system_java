@@ -3,13 +3,14 @@ package LMS.course;
 import java.util.Date;
 
 public class Assignment {
+    private int courseId;
     private int assignmentId;
     private String assignmentName;
     private String assignmentDescription;
     private Date dueDate;
     private String taskType;
 
-    // Constructor
+    public Assignment() {}
     public Assignment(int assignmentId, String assignmentName, String assignmentDescription, Date dueDate, String taskType) {
         this.assignmentId = assignmentId;
         this.assignmentName = assignmentName;

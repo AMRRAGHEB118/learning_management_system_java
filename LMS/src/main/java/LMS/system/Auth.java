@@ -7,9 +7,9 @@ import LMS.user.Admin;
 import LMS.user.Instructor;
 import LMS.user.Student;
 
-public abstract class Auth {
+public class Auth {
     static Admin currentAdmin;
-    private static Instructor currentInstructor;
+    static Instructor currentInstructor;
     private static Student currentStudent;
 
     public static Admin loginAsAdmin(Scanner scanner) {
@@ -33,8 +33,8 @@ public abstract class Auth {
         return null;
     }
 
-    public void loginAsInstructor() {
-        try (Scanner scanner = new Scanner(System.in)) {
+    public static Instructor loginAsInstructor(Scanner scanner) {
+        try {
             System.out.println("Login");
             System.out.print("Enter email: ");
             String username = scanner.nextLine();
@@ -43,12 +43,16 @@ public abstract class Auth {
             Instructor instructor = validateInstructor(username, password);
             if (instructor != null) {
                 currentInstructor = instructor;
-                return;
+                return currentInstructor;
             } else {
                 System.out.println("Invalid username or password. Login failed.");
-                return;
+                return instructor;
             }
+        }catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
         }
+
+        return null;
     }
 
     public void loginAsStudent() {
@@ -83,13 +87,13 @@ public abstract class Auth {
         return null;
         }
 
-    private Instructor validateInstructor(String email, String password) {
+    private static Instructor validateInstructor(String email, String password) {
         FileManager<Instructor> fileManager = new FileManager<Instructor>(".//target//data//Instructor.json", Instructor.class);
-        List<Instructor> admins = fileManager.readFromFile();
+        List<Instructor> instructors = fileManager.readFromFile();
 
-        for (Instructor admin : admins) {
-            if (admin.getEmail().equals(email) && admin.getPassword().equals(password)) {
-                return admin;
+        for (Instructor instructor : instructors) {
+            if (instructor.getEmail().equals(email) && instructor.getPassword().equals(password)) {
+                return instructor;
             } else {
                 return null;
             }
@@ -118,12 +122,12 @@ public abstract class Auth {
         System.out.println("Logout successful. Goodbye!");
     }
 
-    public void logoutAsInstructor() {
+    public static void logoutAsInstructor() {
         currentInstructor = null;
         System.out.println("Logout successful. Goodbye!");
     }
 
-    public void logoutAsStudent() {
+    public static void logoutAsStudent() {
         currentStudent = null;
         System.out.println("Logout successful. Goodbye!");
     }
