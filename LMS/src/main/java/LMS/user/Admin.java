@@ -275,6 +275,9 @@ public class Admin extends User {
         System.out.print("Enter instructor id: ");
         int id = scanner.nextInt();
 
+        System.out.println("Enter course description: ");
+        String courseDescription = scanner.nextLine();
+
         for (Instructor instructor : instructors) {
             if (instructor.getId() == id) {
                 isExist = true;
@@ -287,7 +290,7 @@ public class Admin extends User {
             return;
         }
 
-        Course newCourse = new Course(courses.size() + 1, courseName, id);
+        Course newCourse = new Course(courses.size() + 1, courseName, id, courseDescription);
 
         fileManager.appendToFile(courses, newCourse);
 
