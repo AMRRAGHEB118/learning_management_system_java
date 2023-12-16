@@ -6,48 +6,35 @@ import java.util.Scanner;
 import LMS.user.Admin;
 import LMS.user.Instructor;
 import LMS.user.Student;
+import LMS.user.User;
 
 public class Auth {
     static Admin currentAdmin;
     static Instructor currentInstructor;
     private static Student currentStudent;
 
-    public static Admin loginAsAdmin(Scanner scanner) {
+    public static User loginAsAdmin(Scanner scanner) {
         try {
             System.out.println("Login");
             System.out.print("Enter email: ");
             String username = scanner.nextLine();
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
-            Admin admin = validateAdmin(username, password);
-            if (admin != null) {
-                currentAdmin = admin;
-                return admin;
-            } else {
-                System.out.println("Invalid username or password. Login failed.");
-                return admin;
-            }
+            return validateAdmin(username, password);
         }catch (Exception e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
         return null;
     }
 
-    public static Instructor loginAsInstructor(Scanner scanner) {
+    public static User loginAsInstructor(Scanner scanner) {
         try {
             System.out.println("Login");
             System.out.print("Enter email: ");
             String username = scanner.nextLine();
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
-            Instructor instructor = validateInstructor(username, password);
-            if (instructor != null) {
-                currentInstructor = instructor;
-                return currentInstructor;
-            } else {
-                System.out.println("Invalid username or password. Login failed.");
-                return instructor;
-            }
+            return validateInstructor(username, password);
         }catch (Exception e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
@@ -55,66 +42,47 @@ public class Auth {
         return null;
     }
 
-    public void loginAsStudent() {
-        try (Scanner scanner = new Scanner(System.in)) {
+    public static User loginAsStudent(Scanner scanner) {
+        try {
             System.out.println("Login");
             System.out.print("Enter email: ");
             String username = scanner.nextLine();
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
-            Student student = validateStudent(username, password);
-            if (student != null) {
-                currentStudent = student;
-                return;
-            } else {
-                System.out.println("Invalid username or password. Login failed.");
-                return;
-            }
+            return validateStudent(username, password);
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
         }
+        return null;
     }
 
-    private static Admin validateAdmin(String email, String password) {
+    private static User validateUser(List<? extends User> users, String email, String password) {
+    for (User user : users) {
+        if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+            return user;
+        }
+    }
+    return null;
+    }
+
+
+
+    private static User validateAdmin(String email, String password) {
         FileManager<Admin> fileManager = new FileManager<Admin>(".//target//data//Admin.json", Admin.class);
         List<Admin> admins = fileManager.readFromFile();
-
-        for (Admin admin : admins) {
-            if (admin.getEmail().equals(email) && admin.getPassword().equals(password)) {
-                return admin;
-            } else {
-                return null;
-            }
-        }
-        return null;
+        return validateUser(admins, email, password);
         }
 
-    private static Instructor validateInstructor(String email, String password) {
+    private static User validateInstructor(String email, String password) {
         FileManager<Instructor> fileManager = new FileManager<Instructor>(".//target//data//Instructor.json", Instructor.class);
         List<Instructor> instructors = fileManager.readFromFile();
-
-        for (Instructor instructor : instructors) {
-            if (instructor.getEmail().equals(email) && instructor.getPassword().equals(password)) {
-                return instructor;
-            } else {
-                return null;
-            }
-        }
-
-        return null;
+        return validateUser(instructors, email, password);
     }
 
-    private Student validateStudent(String email, String password) {
-        FileManager<Student> fileManager = new FileManager<Student>(".//target//data//Student.json", Student.class);
-        List<Student> admins = fileManager.readFromFile();
-
-        for (Student admin : admins) {
-            if (admin.getEmail().equals(email) && admin.getPassword().equals(password)) {
-                return admin;
-            } else {
-                return null;
-            }
-        }
-
-        return null;
+    private static User validateStudent(String email, String password) {
+        FileManager<Student> fileManager = new FileManager<>(".//target//data//Student.json", Student.class);
+        List<Student> students = fileManager.readFromFile();
+        return validateUser(students, email, password);
     }
 
     public static void logoutAsAdmin() {

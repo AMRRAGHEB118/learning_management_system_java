@@ -38,7 +38,7 @@ public class FileManager<T> {
             if (data.contains(item)) {
                 data.remove(item);
             } else {
-                System.out.println("Item not found for update.");
+                System.out.println("Item not found for deletion.");
                 return;
             }
 
@@ -72,17 +72,7 @@ public class FileManager<T> {
             e.printStackTrace();
         }
     }
-    
 
-    public void insertFile() {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writeValue(new File(filePath), type);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public List<T> readFromFile() {
         try {
@@ -111,16 +101,6 @@ public class FileManager<T> {
             return new ArrayList<>();
         }
     }
-
-    // public void writeToFile(List<T> data) {
-    //     try {
-    //         ObjectMapper objectMapper = new ObjectMapper();
-    //         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-    //         objectMapper.writeValue(new File(filePath), data);
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
 }
 
 

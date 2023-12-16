@@ -3,6 +3,10 @@ package LMS.system;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import LMS.user.Admin;
+import LMS.user.Instructor;
+import LMS.user.User;
+
 public class MainMenu implements Menu {
 
     public static void showDashboard(Scanner scanner) {
@@ -19,20 +23,22 @@ public class MainMenu implements Menu {
                 System.out.print("Enter your choice: ");
                 int choice = scanner.nextInt();
                 scanner.nextLine();
+                User currentUser = null;
 
                 switch (choice) {
                     case 1:
-                        Auth.currentAdmin = Auth.loginAsAdmin(scanner);
-                        if (Auth.currentAdmin != null) {
+                        currentUser = Auth.loginAsAdmin(scanner);
+                        if (currentUser instanceof Admin) {
+                            Auth.currentAdmin = (Admin) currentUser;
                             AdminMenu.showDashboard(scanner);
                         } else {
                             System.out.println("Login failed. Admin not found.");
                         }
                         break;
                     case 2:
-                        Auth.currentInstructor = Auth.loginAsInstructor(scanner);
-                        System.out.println(Auth.currentInstructor);
-                        if (Auth.currentInstructor != null) {
+                        currentUser = Auth.loginAsInstructor(scanner);
+                        if (currentUser instanceof Instructor) {
+                            Auth.currentInstructor = (Instructor) currentUser;
                             InstructorMenu.showDashboard(scanner);
                         } else {
                             System.out.println("Login failed. Instructor not found.");
