@@ -1,22 +1,21 @@
 package LMS.course;
 
-import java.util.Date;
 
 public class Assignment {
     private int lectureId;
     private int assignmentId;
     private String assignmentName;
-    private String assignmentDescription;
-    private Date dueDate;
+    private String assignmentContent;
+    private String dueDate;
     private String taskType;
 
     public Assignment() {}
 
-    public Assignment(int lectureId, int assignmentId, String assignmentName, String assignmentDescription, Date dueDate, String taskType) {
+    public Assignment(int lectureId, int assignmentId, String assignmentName, String assignmentContent, String dueDate, String taskType) {
         this.lectureId = lectureId;
         this.assignmentId = assignmentId;
         this.assignmentName = assignmentName;
-        this.assignmentDescription = assignmentDescription;
+        this.assignmentContent = assignmentContent;
         this.dueDate = dueDate;
         this.taskType = taskType;
     }
@@ -41,19 +40,19 @@ public class Assignment {
         this.assignmentName = assignmentName;
     }
 
-    public String getAssignmentDescription() {
-        return assignmentDescription;
+    public String getAssignmentContent() {
+        return assignmentContent;
     }
 
-    public void setAssignmentDescription(String assignmentDescription) {
-        this.assignmentDescription = assignmentDescription;
+    public void setAssignmentContent(String assignmentContent) {
+        this.assignmentContent = assignmentContent;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -70,7 +69,7 @@ public class Assignment {
         return "Assignment{" +
                 "assignmentId=" + assignmentId +
                 ", assignmentName='" + assignmentName + '\'' +
-                ", assignmentDescription='" + assignmentDescription + '\'' +
+                ", assignmentContent='" + assignmentContent + '\'' +
                 ", dueDate=" + dueDate +
                 ", taskType='" + taskType + '\'' +
                 '}';

@@ -1,10 +1,12 @@
 package LMS.user;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import LMS.GlobalConfig;
+import LMS.course.Assignment;
 import LMS.course.Course;
 import LMS.course.Lecture;
 import LMS.system.FileManager;
@@ -19,9 +21,6 @@ public class Instructor extends User {
     }
 
     public void generateReport() {
-    }
-
-    public void deleteAssignment(Scanner scanner) {
     }
 
     public void editCourse(Scanner scanner) {
@@ -135,8 +134,94 @@ public class Instructor extends User {
     }
 
     public void addAssignment(Scanner scanner) {
+        System.out.println("Add Assignment");
+
+        FileManager<Assignment> fileManager = new FileManager<Assignment>(".//target//data//Assignment.json", Assignment.class);
+        List<Assignment> assignments = fileManager.readFromFile();
+
+        System.out.print("Enter Lecture id: ");
+        int lectureId = scanner.nextInt();
+        
+        System.out.print("Enter assignment name: ");
+        String assignmentName = scanner.next();
+
+        System.out.print("Enter assignment Content: ");
+        String assignmentContent = scanner.next();
+
+        System.out.print("Enter due date: ");
+        String dueDate = scanner.next();
+
+        System.out.print("Enter task type: ");
+        String taskType = scanner.next();
+
+
+        Assignment lecture = new Assignment(lectureId, assignments.size() + 1, assignmentName, assignmentContent, dueDate, taskType);
+        fileManager.appendToFile(assignments, lecture);
     }
 
     public void editAssignment(Scanner scanner) {
+        System.out.println("Edit Assignment");
+        boolean isExists = false;
+
+        FileManager<Assignment> fileManager = new FileManager<Assignment>(".//target//data//Assignment.json", Assignment.class);
+        List<Assignment> assignments = fileManager.readFromFile();
+
+        System.out.print("Enter assignment id: ");
+        int assignmentId = scanner.nextInt();
+
+        for (Assignment assignment  : assignments) {
+            if (assignment.getAssignmentId() == assignmentId){
+
+                System.out.print("Enter assignment Content: ");
+                String assignmentContent = scanner.next();
+
+                assignment.setAssignmentContent(assignmentContent);
+
+                System.out.print("Enter due date: ");
+                String dueDate = scanner.next();
+
+                assignment.setDueDate(dueDate);
+
+                System.out.print("Enter task type: ");
+                String taskType = scanner.next();
+
+                assignment.setTaskType(taskType);
+
+                fileManager.updateFile(assignments, assignment);
+                isExists = true;
+                break;
+            }
+        }
+
+        if (!isExists) {
+            System.out.println("Lecture does not exist.");
+        } else {
+            System.out.println("Lecture updated successfully.");
+        }
+    }
+
+    public void deleteAssignment(Scanner scanner) {
+        System.out.println("Delete Assignment");
+        boolean isExists = false;
+
+        FileManager<Assignment> fileManager = new FileManager<Assignment>(".//target//data//Assignment.json", Assignment.class);
+        List<Assignment> assignments = fileManager.readFromFile();
+
+        System.out.print("Enter assignment id: ");
+        int assignmentId = scanner.nextInt();
+
+        for (Assignment assignment  : assignments) {
+            if (assignment.getAssignmentId() == assignmentId){
+                fileManager.deleteFromFile(assignments, assignment);
+                isExists = true;
+                break;
+            }
+        }
+
+        if (!isExists) {
+            System.out.println("Lecture does not exist.");
+        } else {
+            System.out.println("Lecture deleted successfully.");
+        }
     }
 }
