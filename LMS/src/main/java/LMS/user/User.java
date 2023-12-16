@@ -21,11 +21,6 @@ public class User {
         this.password = password;
         this.userType = new UserType(userType);
         this.privileges = new ArrayList<>();
-        // List<UserPrivilege> currentPrivileges = new ArrayList<>();
-        // for (UserPrivilege userPrivilege : privileges) {
-        //     currentPrivileges.add(new UserPrivilege(userPrivilege.getPrivilegeName()));
-        // }
-        // this.privileges = new ArrayList<UserPrivilege>(currentPrivileges);
     }
 
     public int getId() {

@@ -16,18 +16,6 @@ public class Admin extends User {
         super(id, name, email, password, GlobalConfig.USER_TYPE_ADMIN.getTypeName());
     }
 
-    // public List<UserPrivilege> getPrivileges() {
-    //     return privileges;
-    // }
-
-    // public void addPrivilege(UserPrivilege privilege) {
-    //     privileges.add(privilege);
-    // }
-
-    // public void removePrivilege(UserPrivilege privilege) {
-    //     privileges.remove(privilege);
-    // }
-
     public static void addInstructor(Scanner scanner) {
         System.out.println("Add Instructor");
 
@@ -72,16 +60,202 @@ public class Admin extends User {
         System.out.println("Student added successfully.");
     }
 
-    public void viewUsers() {
-        System.out.println("View Users");
+    public static void deleteInstructor(Scanner scanner) {
+        System.out.println("Delete Instructor");
+        boolean isExist = false;
 
-        FileManager<User> fileManager = new FileManager<User>(".//target//data//User.json", User.class);
-        List<User> users = fileManager.readFromFile();
+        FileManager<Instructor> fileManager = new FileManager<Instructor>(".//target//data//Instructor.json", Instructor.class);
+        List<Instructor> instructors = fileManager.readFromFile();
 
-        for (User user : users) {
-            System.out.println("Name: " + user.getName());
-            System.out.println("Email: " + user.getEmail());
-            System.out.println();
+        System.out.print("Enter id: ");
+        int id = scanner.nextInt();
+
+        for (Instructor instructor : instructors) {
+            if (instructor.getId() == id) {
+                fileManager.deleteFromFile(instructors, instructor);
+                System.out.println("Instructor deleted successfully.");
+                isExist = true;
+                break;
+            }
+        }
+
+        if (!isExist) {
+            System.out.println("Instructor does not exist.");
+        }
+    }
+
+    public static void editInstructor(Scanner scanner) {
+        System.out.println("Edit Instructor");
+        boolean isExist = false;
+        int existPrivilegeId = 0;
+        String existPrivilegeName = "";
+
+        FileManager<Instructor> fileManager = new FileManager<Instructor>(".//target//data//Instructor.json", Instructor.class);
+        FileManager<UserPrivilege> fileManager2 = new FileManager<UserPrivilege>(".//target//data//UserPrivilege.json", UserPrivilege.class);
+        List<Instructor> instructors = fileManager.readFromFile();
+        List<UserPrivilege> userPrivileges = fileManager2.readFromFile();
+
+        System.out.print("Enter instructor id: ");
+        int instructorId = scanner.nextInt();
+
+        System.out.print("Enter pavilege id: ");
+        int privilegeId = scanner.nextInt();
+
+        for (UserPrivilege userPrivilege : userPrivileges) {
+            if (userPrivilege.getId() == privilegeId){
+                existPrivilegeId = userPrivilege.getId();
+                existPrivilegeName = userPrivilege.getPrivilegeName();
+                isExist = true;
+                break;
+            }
+        }
+
+        if (!isExist) {
+            System.out.println("Privilege does not exist.");
+            return;
+        }
+        for (Instructor instructor : instructors) {
+            if (instructor.getId() == instructorId) {
+                    UserPrivilege userPrivilege = new UserPrivilege(existPrivilegeId, existPrivilegeName);
+                    instructor.addPrivilege(userPrivilege);
+                    fileManager.updateFile(instructors, instructor);
+                break;
+            }
+        }
+
+        System.out.println("Instructor updated successfully.");
+    }
+
+    public static void editStudent(Scanner scanner) {
+        System.out.println("Edit Student");
+        boolean isExist = false;
+        int existPrivilegeId = 0;
+        String existPrivilegeName = "";
+
+        FileManager<Student> fileManager = new FileManager<Student>(".//target//data//Student.json", Student.class);
+        FileManager<UserPrivilege> fileManager2 = new FileManager<UserPrivilege>(".//target//data//UserPrivilege.json", UserPrivilege.class);
+        List<Student> students = fileManager.readFromFile();
+        List<UserPrivilege> userPrivileges = fileManager2.readFromFile();
+
+        System.out.print("Enter student id: ");
+        int studentId = scanner.nextInt();
+
+        System.out.print("Enter pavilege id: ");
+        int privilegeId = scanner.nextInt();
+
+        for (UserPrivilege userPrivilege : userPrivileges) {
+            if (userPrivilege.getId() == privilegeId){
+                existPrivilegeId = userPrivilege.getId();
+                existPrivilegeName = userPrivilege.getPrivilegeName();
+                isExist = true;
+                break;
+            }
+        }
+
+        if (!isExist) {
+            System.out.println("Privilege does not exist.");
+            return;
+        }
+        for (Student student : students) {
+            if (student.getId() == studentId) {
+                    UserPrivilege userPrivilege = new UserPrivilege(existPrivilegeId, existPrivilegeName);
+                    student.addPrivilege(userPrivilege);
+                    fileManager.updateFile(students, student);
+                break;
+            }
+        }
+
+        System.out.println("Student updated successfully.");
+    }
+
+    public static void deleteStudent(Scanner scanner) {
+        System.out.println("Delete Student");
+        boolean isExist = false;
+
+        FileManager<Student> fileManager = new FileManager<Student>(".//target//data//Student.json", Student.class);
+        List<Student> students = fileManager.readFromFile();
+
+        System.out.print("Enter id: ");
+        int id = scanner.nextInt();
+
+        for (Student student : students) {
+            if (student.getId() == id) {
+                fileManager.deleteFromFile(students, student);
+                System.out.println("Student deleted successfully.");
+                isExist = true;
+                break;
+            }
+        }
+
+        if (!isExist) {
+            System.out.println("Student does not exist.");
+        }
+    }
+
+    public static void addUserPrivilege(Scanner scanner) {
+        System.out.println("Add User Privilege");
+
+        FileManager<UserPrivilege> fileManager = new FileManager<UserPrivilege>(".//target//data//UserPrivilege.json", UserPrivilege.class);
+        List<UserPrivilege> userPrivileges = fileManager.readFromFile();
+
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+
+        UserPrivilege newUserPrivilege = new UserPrivilege(userPrivileges.size() + 1, name);
+
+        fileManager.appendToFile(userPrivileges, newUserPrivilege);
+
+        System.out.println("User Privilege added successfully.");
+    }
+
+    public static void editUserPrivilege(Scanner scanner) {
+        System.out.println("Edit User Privilege");
+        boolean isExist = false;
+
+        FileManager<UserPrivilege> fileManager = new FileManager<UserPrivilege>(".//target//data//UserPrivilege.json", UserPrivilege.class);
+        List<UserPrivilege> userPrivileges = fileManager.readFromFile();
+
+        System.out.print("Enter user privilege id: ");
+        int id = scanner.nextInt();
+
+        for (UserPrivilege userPrivilege : userPrivileges) {
+            if (userPrivilege.getId() == id){
+                System.out.print("Enter new name: ");
+                String newName = scanner.nextLine();
+                userPrivilege.setPrivilegeName(newName);
+                fileManager.updateFile(userPrivileges, userPrivilege);
+                break;
+            }
+        }
+
+        if (!isExist) {
+            System.out.println("User Privilege does not exist.");
+        }else {
+            System.out.println("User Privilege updated successfully.");
+        }
+    }
+
+    public static void deleteUserPrivilege(Scanner scanner) {
+        System.out.println("Delete User Privilege");
+        boolean isExist = false;
+
+        FileManager<UserPrivilege> fileManager = new FileManager<UserPrivilege>(".//target//data//UserPrivilege.json", UserPrivilege.class);
+        List<UserPrivilege> userPrivileges = fileManager.readFromFile();
+
+        System.out.print("Enter user privilege id: ");
+        int id = scanner.nextInt();
+
+        for (UserPrivilege userPrivilege : userPrivileges) {
+            if (userPrivilege.getId() == id){
+                fileManager.deleteFromFile(userPrivileges, userPrivilege);
+                System.out.println("User Privilege deleted successfully.");
+                isExist = true;
+                break;
+            }
+        }
+
+        if (!isExist) {
+            System.out.println("User Privilege does not exist.");
         }
     }
 
@@ -92,19 +266,6 @@ public class Admin extends User {
     }
 
     public void deleteUserType() {
-    }
-
-    public void removePrivilege() {
-    }
-
-    public void editPrivilege() {
-    }
-
-    public static void deleteInstructor(Scanner scanner) {
-        
-    }
-
-    public static void editInstructor(Scanner scanner) {
     }
 }
 

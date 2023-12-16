@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +32,20 @@ public class FileManager<T> {
 
     public void deleteFromFile(List<T> data, T item) {
         try {
-            data.remove(item);
-
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writeValue(new File(filePath), type);
+
+            if (data.contains(item)) {
+                data.remove(item);
+            } else {
+                System.out.println("Item not found for update.");
+                return;
+            }
+
+            try (FileWriter writer = new FileWriter(filePath)) {
+                objectMapper.writeValue(writer, data);
+            }
+    
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,11 +55,24 @@ public class FileManager<T> {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writeValue(new File(filePath), type);
+
+            if (data.contains(item)) {
+                int index = data.indexOf(item);
+                data.set(index, item);
+            } else {
+                System.out.println("Item not found for update.");
+                return;
+            }
+
+            try (FileWriter writer = new FileWriter(filePath)) {
+                objectMapper.writeValue(writer, data);
+            }
+    
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
 
     public void insertFile() {
         try {
