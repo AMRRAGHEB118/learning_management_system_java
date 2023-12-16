@@ -3,7 +3,7 @@ package LMS.course;
 import java.util.Date;
 
 public class Assignment {
-    private int courseId;
+    private int lectureId;
     private int assignmentId;
     private String assignmentName;
     private String assignmentDescription;
@@ -11,7 +11,9 @@ public class Assignment {
     private String taskType;
 
     public Assignment() {}
-    public Assignment(int assignmentId, String assignmentName, String assignmentDescription, Date dueDate, String taskType) {
+
+    public Assignment(int lectureId, int assignmentId, String assignmentName, String assignmentDescription, Date dueDate, String taskType) {
+        this.lectureId = lectureId;
         this.assignmentId = assignmentId;
         this.assignmentName = assignmentName;
         this.assignmentDescription = assignmentDescription;
@@ -19,8 +21,8 @@ public class Assignment {
         this.taskType = taskType;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public int getLectureId() {
+        return lectureId;
     }
 
     public int getAssignmentId() {

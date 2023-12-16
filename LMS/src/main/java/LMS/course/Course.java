@@ -40,5 +40,17 @@ public class Course {
     public double generatePerformanceReport() {
         return 0.0;
     }
+
+    public int getId() {
+        return courseId;
+    }
+
+    public void setName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public void setDescription(String courseDescription) {
+        this.courseDescription = courseDescription;
+    }
 }
 

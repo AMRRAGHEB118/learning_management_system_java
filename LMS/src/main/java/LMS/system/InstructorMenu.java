@@ -34,19 +34,19 @@ public class InstructorMenu implements Menu {
                             Auth.currentInstructor.editCourse(scanner);
                             break;
                         case 2:
-                            Auth.currentInstructor.deleteLecture(scanner);
+                            Auth.currentInstructor.addLecture(scanner);
                             break;
                         case 3:
-                            Auth.currentInstructor.deleteLecture(scanner);
+                            Auth.currentInstructor.editLecture(scanner);
                             break;
                         case 4:
                             Auth.currentInstructor.deleteLecture(scanner);
                             break;
                         case 5:
-                            Auth.currentInstructor.deleteAssignment(scanner);
+                            Auth.currentInstructor.addAssignment(scanner);
                             break;
                         case 6:
-                            Auth.currentInstructor.deleteAssignment(scanner);
+                            Auth.currentInstructor.editAssignment(scanner);
                             break;
                         case 7:
                             Auth.currentInstructor.deleteAssignment(scanner);

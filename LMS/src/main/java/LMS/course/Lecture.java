@@ -1,14 +1,21 @@
 package LMS.course;
 
 public class Lecture {
+    private int courseId;
     private int lectureId;
     private String lectureName;
     private String lectureContent;
 
-    public Lecture(int lectureId, String lectureName, String lectureContent) {
+    public Lecture() {}
+
+    public Lecture(int courseId, int lectureId, String lectureName, String lectureContent) {
         this.lectureId = lectureId;
         this.lectureName = lectureName;
         this.lectureContent = lectureContent;
+    }
+
+    public int getCourseId() {
+        return courseId;
     }
 
     public int getLectureId() {
