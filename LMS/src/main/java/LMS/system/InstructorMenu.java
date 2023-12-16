@@ -52,7 +52,7 @@ public class InstructorMenu implements Menu {
                             Auth.currentInstructor.deleteAssignment(scanner);
                             break;
                         case 8:
-                            Auth.currentInstructor.generateReport();
+                            Auth.currentInstructor.generateReport(scanner, Auth.currentInstructor.getId());
                             break;
                         case 9:
                             Auth.logoutAsInstructor();

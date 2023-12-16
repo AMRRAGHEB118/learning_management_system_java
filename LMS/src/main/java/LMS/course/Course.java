@@ -1,6 +1,8 @@
 package LMS.course;
 
 
+import java.util.List;
+
 public class Course {
     private int courseId;
     private String courseName;
@@ -51,6 +53,15 @@ public class Course {
 
     public void setDescription(String courseDescription) {
         this.courseDescription = courseDescription;
+    }
+
+    public static Course getCourseById(List<Course> courses, int courseId, int instructorId) {
+        for (Course course : courses) {
+            if (course.getCourseId() == courseId && course.getInstructorId() == instructorId) {
+                return course;
+            }
+        }
+        return null;
     }
 }
 

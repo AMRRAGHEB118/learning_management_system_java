@@ -1,5 +1,6 @@
 package LMS.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -44,6 +45,7 @@ public class Admin extends User {
 
         FileManager<Student> fileManager = new FileManager<Student>(".//target//data//Student.json", Student.class);
         List<Student> students = fileManager.readFromFile();
+        List<Integer> courses = new ArrayList<>();
 
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
@@ -54,7 +56,16 @@ public class Admin extends User {
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
 
-        Student newStudent = new Student(students.size() + 1, name, email, password, 0.0);
+        System.out.print("Enter courses number: ");
+        int coursesNumber = scanner.nextInt();
+
+        for(int i = 0; i < coursesNumber; i++) {
+            System.out.print("Enter course id: ");
+            int id = scanner.nextInt();
+            courses.add(id);
+        }
+
+        Student newStudent = new Student(students.size() + 1, name, email, password, 0.0, courses);
 
         fileManager.appendToFile(students, newStudent);
 
