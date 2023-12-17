@@ -1,40 +1,44 @@
 package LMS.exam;
 
-import LMS.user.Instructor;
-
-import java.util.List;
 
 public class Exam {
+    private int courseId;
     private int examId;
     private String examName;
-    private List<Question> questions;
-    private  Instructor assignedExaminer;
+    private  int assignedExaminer;
+
+    public Exam() {}
 
     // Constructor
-    public Exam(int examId, String examName, List<Question> questions) {
+    public Exam(int courseId, int examId, String examName, int assignedExaminer) {
+        this.courseId = courseId;
         this.examId = examId;
         this.examName = examName;
-        this.questions = questions;
+        this.assignedExaminer = assignedExaminer;
+    }
+
+    public int getCourseId() {
+        return courseId;
     }
 
     public int getExamId() {
         return examId;
     }
 
+    public void setExamId(int examId) {
+        this.examId = examId;
+    }
+
     public String getExamName() {
         return examName;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
+    public void setExamName(String examName) {
+        this.examName = examName;
     }
 
-    public Instructor getAssignedExaminer() {
+    public int getAssignedExaminer() {
         return assignedExaminer;
-    }
-
-    public void setAssignedExaminer(Instructor assignedExaminer) {
-        this.assignedExaminer = assignedExaminer;
     }
 
     public double calculatePassPercentage() {
@@ -48,13 +52,5 @@ public class Exam {
     public void correctChoices() {}
 
     public void storeResults() {}
-
-    public void displayExamDetails() {
-        System.out.println("Exam ID: " + examId);
-        System.out.println("Exam Name: " + examName);
-        System.out.println("Assigned Examiner: " + (assignedExaminer != null ? assignedExaminer.getName() : "Not assigned"));
-    }
-
-    // Other methods...
 }
 
