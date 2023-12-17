@@ -17,7 +17,9 @@ public class InstructorMenu implements Menu {
         System.out.println("6. Edit Assignment");
         System.out.println("7. Delete Assignment");
         System.out.println("8. Generate Report");
-        System.out.println("9. Logout");
+        System.out.println("9. Add Exam");
+        System.out.println("10. Add Question");
+        System.out.println("11. Logout");
 
         try {
             boolean exit = false;
@@ -55,6 +57,12 @@ public class InstructorMenu implements Menu {
                             Auth.currentInstructor.generateReport(scanner, Auth.currentInstructor.getId());
                             break;
                         case 9:
+                            Auth.currentInstructor.addExam(scanner, Auth.currentInstructor.getId());
+                            break;
+                        case 10:
+                            Auth.currentInstructor.addQuestions(scanner, Auth.currentInstructor.getId());
+                            break;
+                        case 11:
                             Auth.logoutAsInstructor();
                             MainMenu.showDashboard(scanner);
                     }

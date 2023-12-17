@@ -13,7 +13,7 @@ public class Student extends User {
     }
 
     public Student(int id, String name, String email, String password, double gpa, List<Integer> courses) {
-        super(id, name, email, password, GlobalConfig.USER_TYPE_STUDENT.getTypeName());
+        super(id, name, email, password, GlobalConfig.USER_TYPE_STUDENT.getId());
         this.gpa = gpa;
         this.courses = courses;
     }

@@ -10,6 +10,8 @@ import LMS.course.Assignment;
 import LMS.course.Course;
 import LMS.course.Lecture;
 import LMS.course.Report;
+import LMS.exam.Exam;
+import LMS.exam.Questions;
 import LMS.system.FileManager;
 
 public class Instructor extends User {
@@ -18,7 +20,7 @@ public class Instructor extends User {
     }
 
     public Instructor(int id, String name, String email, String password) {
-        super(id, name, email, password, GlobalConfig.USER_TYPE_INSTRUCTOR.getTypeName());
+        super(id, name, email, password, GlobalConfig.USER_TYPE_INSTRUCTOR.getId());
     }
 
     public void editCourse(Scanner scanner) {
@@ -287,4 +289,93 @@ public class Instructor extends User {
         System.out.println("Invalid input. Please enter valid data.");
     }
 }
+
+    public void addExam(Scanner scanner, int id) {
+        System.out.println("Add Exam");
+
+        try {
+            FileManager<Exam> examFileManager = new FileManager<>(".//target//data//Exam.json", Exam.class);
+            List<Exam> exams = examFileManager.readFromFile();
+
+            System.out.print("Enter course id: ");
+            int courseId = scanner.nextInt();
+
+            System.out.print("Enter exam name: ");
+            String examName = scanner.next();
+
+            Exam exam = new Exam(courseId, exams.size() + 1, examName, id);
+
+            examFileManager.appendToFile(exams, exam);
+
+            System.out.println("Exam added successfully.");
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter valid data.");
+        }
+    }
+
+    public void addQuestions(Scanner scanner, int id) {
+        System.out.println("Add Question");
+
+        try {
+            FileManager<Questions> questionFileManager = new FileManager<Questions>(GlobalConfig.QUESTION_FILE_PATH, Questions.class);
+            FileManager<Exam> examFileManager = new FileManager<Exam>(GlobalConfig.EXAM_FILE_PATH, Exam.class);
+            List<Questions> questionsList = questionFileManager.readFromFile();
+            List<Exam> exams = examFileManager.readFromFile();
+            Questions questions = new Questions();
+
+            System.out.print("Enter exam id: ");
+            int examId = scanner.nextInt();
+
+            Exam selectedExam = Exam.getExamById(exams, examId);
+            
+            if (selectedExam == null) {
+                System.out.println("Exam does not exist.");
+                return;
+            }
+
+            if (selectedExam.getAssignedExaminer() != id) {
+                System.out.println("You are not authorized to add questions to this exam.");
+                return;
+            }
+
+            questions.setExamId(examId);
+
+            for (int i = 0; i < 5; i++) {
+                questions = addQuestion(scanner, questions);
+            }
+
+            questionFileManager.appendToFile(questionsList, questions);
+
+            System.out.println("Questions added successfully.");
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter valid data.");
+        }
+    }
+
+    private static Questions addQuestion(Scanner scanner, Questions questions) {
+        boolean validInput = false;
+
+        while (!validInput) {
+            System.out.print("Enter question: ");
+            String question = scanner.next();
+    
+            System.out.print("Enter answer (true/false): ");
+            String input = scanner.next();
+
+            System.out.println("Answer: " + input);
+    
+            if (input.toLowerCase().equals("true")) {
+                System.out.println("Answer: true");
+                questions.appendQuestion(question, true);
+                validInput = true;
+            } else if (input.toLowerCase().equals("false")) {
+                questions.appendQuestion(question, false);
+                validInput = true;
+            } else {
+                System.out.println("Invalid input. Please enter 'true' or 'false'.");
+            }
+        }
+        return questions;
+    }
+    
 }

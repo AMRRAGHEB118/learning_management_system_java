@@ -2,13 +2,13 @@ package LMS.exam;
 
 import java.util.HashMap;
 
-public class Question {
+public class Questions {
     private int examId;
     private HashMap<String, Boolean> questionMap;
 
-    public Question() {}
+    public Questions() {}
 
-    public Question(int examId, HashMap<String, Boolean> questionMap) {
+    public Questions(int examId, HashMap<String, Boolean> questionMap) {
         this.examId = examId;
         this.questionMap = questionMap;
     }
@@ -28,5 +28,13 @@ public class Question {
     public void setQuestionMap(HashMap<String, Boolean> questionMap) {
         this.questionMap = questionMap;
     }
+
+    public void appendQuestion(String question, boolean answer) {
+        if (questionMap == null) {
+            questionMap = new HashMap<>();
+        }
+        questionMap.put(question, answer);
+    }
+
 }
 

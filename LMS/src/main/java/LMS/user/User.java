@@ -8,18 +8,18 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private UserType userType;
+    private int userTypeId;
     private List<UserPrivilege> privileges;
 
     public User() {
     }
 
-    public User(int id, String name, String email, String password, String userType) {
+    public User(int id, String name, String email, String password, int userTypeId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.userType = new UserType(userType);
+        this.userTypeId = userTypeId;
         this.privileges = new ArrayList<>();
     }
 
@@ -35,8 +35,8 @@ public class User {
         return email;
     }
 
-    public UserType getUserType() {
-        return userType;
+    public int getUserTypeId() {
+        return userTypeId;
     }
 
     public List<UserPrivilege> getPrivileges() {

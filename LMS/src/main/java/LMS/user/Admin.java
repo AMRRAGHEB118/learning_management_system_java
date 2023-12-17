@@ -15,7 +15,7 @@ public class Admin extends User {
     }
 
     public Admin(int id, String name, String email, String password) {
-        super(id, name, email, password, GlobalConfig.USER_TYPE_ADMIN.getTypeName());
+        super(id, name, email, password, GlobalConfig.USER_TYPE_ADMIN.getId());
     }
 
     public void addInstructor(Scanner scanner) {
@@ -301,7 +301,7 @@ public class Admin extends User {
             return;
         }
 
-        Course newCourse = new Course(courses.size() + 1, courseName, id, courseDescription);
+        Course newCourse = new Course(courses.size() + 1, courseName, id, courseDescription, new ArrayList<>());
 
         fileManager.appendToFile(courses, newCourse);
 
@@ -313,7 +313,7 @@ public class Admin extends User {
         System.out.println("Delete Course");
         boolean isExist = false;
 
-        FileManager<Course> fileManager = new FileManager<Course>(".//target//data//Course.json", Course.class);
+        FileManager<Course> fileManager = new FileManager<Course>(GlobalConfig.COURSE_FILE_PATH, Course.class);
         List<Course> courses = fileManager.readFromFile();
 
         System.out.print("Enter course id: ");
@@ -333,7 +333,24 @@ public class Admin extends User {
         }
     }
 
-    public void addUserType() {
+    public void addUserType(Scanner scanner) {
+        System.out.println("Add User Type");
+        
+        try {
+            FileManager<UserType> fileManager = new FileManager<UserType>(GlobalConfig.USER_TYPE_FILE_PATH, UserType.class);
+            List<UserType> userTypes = fileManager.readFromFile();
+
+            System.out.print("Enter user type name: ");
+            String name = scanner.next();
+
+            UserType userType = new UserType(userTypes.size() + 1, name);
+
+            fileManager.appendToFile(userTypes, userType);
+
+            System.out.println("User Type added successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void editUserType() {

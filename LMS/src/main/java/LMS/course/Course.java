@@ -8,14 +8,16 @@ public class Course {
     private String courseName;
     private String courseDescription;
     private int instructorId;
+    private List<Integer> students;
 
     public Course() {}
 
-    public Course(int courseId, String courseName, int instructorId, String courseDescription) {
+    public Course(int courseId, String courseName, int instructorId, String courseDescription, List<Integer> students) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.instructorId = instructorId;
         this.courseDescription = courseDescription;
+        this.students = students;
     }
 
     public int getCourseId() {
@@ -32,6 +34,19 @@ public class Course {
 
     public String getCourseDescription() {
         return courseDescription;
+    }
+
+    public List<Integer> getStudents() {
+        return students;
+    }
+
+    public static Course getCourseById(List<Course> courses, int courseId, int instructorId) {
+        for (Course course : courses) {
+            if (course.getCourseId() == courseId && course.getInstructorId() == instructorId) {
+                return course;
+            }
+        }
+        return null;
     }
 
     public void updateAssignment(Assignment assignment) {}
@@ -55,13 +70,12 @@ public class Course {
         this.courseDescription = courseDescription;
     }
 
-    public static Course getCourseById(List<Course> courses, int courseId, int instructorId) {
-        for (Course course : courses) {
-            if (course.getCourseId() == courseId && course.getInstructorId() == instructorId) {
-                return course;
-            }
-        }
-        return null;
+    public void setInstructorId(int instructorId) {
+        this.instructorId = instructorId;
+    }
+
+    public void setStudents(List<Integer> students) {
+        this.students = students;
     }
 }
 

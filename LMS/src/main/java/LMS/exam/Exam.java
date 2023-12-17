@@ -1,5 +1,6 @@
 package LMS.exam;
 
+import java.util.List;
 
 public class Exam {
     private int courseId;
@@ -52,5 +53,13 @@ public class Exam {
     public void correctChoices() {}
 
     public void storeResults() {}
-}
 
+    public static Exam getExamById(List<Exam> exams, int selectedExamId) {
+        for (Exam exam : exams) {
+            if (exam.getExamId() == selectedExamId) {
+                return exam;
+            }
+        }
+        return null;
+    }
+}
