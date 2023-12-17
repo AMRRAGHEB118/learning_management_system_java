@@ -18,7 +18,10 @@ public class AdminMenu {
         System.out.println("9. Delete User Privilege");
         System.out.println("10. Add Course");
         System.out.println("11. DeleteCourse");
-        System.out.println("12. Logout");
+        System.out.println("12. Add User Type");
+        System.out.println("13. Edit User Type");
+        System.out.println("14. Delete User Type");
+        System.out.println("15. Logout");
 
         try {
             boolean exit = false;
@@ -65,6 +68,15 @@ public class AdminMenu {
                             Auth.currentAdmin.deleteCourse(scanner);
                             break;
                         case 12:
+                            Auth.currentAdmin.addUserType(scanner);
+                            break;
+                        case 13:
+                            Auth.currentAdmin.editUserType(scanner);
+                            break;
+                        case 14:
+                            Auth.currentAdmin.deleteUserType(scanner);
+                            break;
+                        case 15:
                             Auth.logoutAsAdmin();
                             MainMenu.showDashboard(scanner);
                         default:

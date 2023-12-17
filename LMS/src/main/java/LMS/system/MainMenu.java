@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import LMS.user.Admin;
 import LMS.user.Instructor;
+import LMS.user.Student;
 import LMS.user.User;
 
 public class MainMenu implements Menu {
@@ -45,7 +46,13 @@ public class MainMenu implements Menu {
                         }
                         break;
                     case 3:
-                        StudentMenu.showDashboard();
+                        currentUser = Auth.loginAsStudent(scanner);
+                        if (currentUser instanceof Student) {
+                            Auth.currentStudent = (Student) currentUser;
+                            StudentMenu.showDashboard(scanner);
+                        } else {
+                            System.out.println("Login failed. Student not found.");
+                        }
                         break;
                     case 4:
                         exit = true;

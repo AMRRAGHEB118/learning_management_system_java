@@ -11,5 +11,8 @@ public class GlobalConfig {
     public static final String EXAM_FILE_PATH = ".//target//data//Exam.json";
     public static final String COURSE_FILE_PATH = ".//target//data//Course.json";
     public static final String USER_TYPE_FILE_PATH = ".//target//data//UserType.json";
+    public static final String LECTURE_FILE_PATH = ".//target//data//Lecture.json";
+    public static final String QUESTIONS_FILE_PATH = ".//target//data//Questions.json";
+    public static final String ANSWERS_FILE_PATH = ".//target//data//Answers.json";
 
 }

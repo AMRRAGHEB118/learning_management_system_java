@@ -353,10 +353,66 @@ public class Admin extends User {
         }
     }
 
-    public void editUserType() {
+    public void editUserType(Scanner scanner) {
+        System.out.println("Edit User Type");
+        boolean isExist = false;
+
+        try {
+            FileManager<UserType> fileManager = new FileManager<UserType>(GlobalConfig.USER_TYPE_FILE_PATH, UserType.class);
+            List<UserType> userTypes = fileManager.readFromFile();
+
+            System.out.print("Enter user type id: ");
+            int id = scanner.nextInt();
+
+            for (UserType userType : userTypes) {
+                if (userType.getId() == id) {
+                    System.out.print("Enter new user type name: ");
+                    String name = scanner.next();
+
+                    userType.setTypeName(name);
+
+                    fileManager.updateFile(userTypes, userType);
+                    isExist = true;
+                    break;
+                }
+            }
+
+            if (!isExist) {
+                System.out.println("User Type does not exist.");
+                return;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void deleteUserType() {
+    public void deleteUserType(Scanner scanner) {
+        System.out.println("Delete User Type");
+        boolean isExist = false;
+
+        try {
+            FileManager<UserType> fileManager = new FileManager<UserType>(GlobalConfig.USER_TYPE_FILE_PATH, UserType.class);
+            List<UserType> userTypes = fileManager.readFromFile();
+
+            System.out.print("Enter user type id: ");
+            int id = scanner.nextInt();
+
+            for (UserType userType : userTypes) {
+                if (userType.getId() == id) {
+                    fileManager.deleteFromFile(userTypes, userType);
+                    System.out.println("User Type deleted successfully.");
+                    isExist = true;
+                    break;
+                }
+            }
+
+            if (!isExist) {
+                System.out.println("User Type does not exist.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

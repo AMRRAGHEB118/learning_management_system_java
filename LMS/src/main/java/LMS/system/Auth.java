@@ -11,7 +11,7 @@ import LMS.user.User;
 public class Auth {
     static Admin currentAdmin;
     static Instructor currentInstructor;
-    private static Student currentStudent;
+    static Student currentStudent;
 
     public static User loginAsAdmin(Scanner scanner) {
         try {
